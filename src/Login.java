@@ -25,74 +25,74 @@ public class Login extends Application {
         primaryStage.setTitle("Welcome StudentMIS");
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);//Set alignment method as center
-        grid.setHgap(10);//列之间的水平差距的宽度为10
-        grid.setVgap(10);//行与行之间的垂直间距的高度为10
-        grid.setPadding(new Insets(25, 25, 25, 25));//顶，右，底部，左侧周围地区的内容填充
+        grid.setHgap(10);//The width of the horizontal gap between the columns is 10
+        grid.setVgap(10);//The height of the vertical spacing between rows is 10
+        grid.setPadding(new Insets(25, 25, 25, 25));//Top, right, bottom, left and surrounding areas are filled with content
 
-        //设置场景标题
+        //Set scene title
         Text scenetitle = new Text("Welcome");
         scenetitle.setId("welcome-text");
         grid.add(scenetitle, 0, 0, 2, 1);
 
-        //设置学号输入框
+        //Set the student ID input box
         Label userName = new Label("User ID:");
         grid.add(userName, 0, 1);
         TextField userTextField = new TextField();
         grid.add(userTextField, 1, 1);
 
-        //设置密码框
+        //Set password box
         Label pw = new Label("Password:");
         grid.add(pw, 0, 2);
         PasswordField pwBox = new PasswordField();
         grid.add(pwBox, 1, 2);
         
-        //设置登录按钮
+        //Set login button
         Button btn = new Button("  Sign  in  ");
         HBox hbBtn = new HBox(10);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn.getChildren().add(btn);
         grid.add(hbBtn,1,4);
         
-        //设置注册按钮
+        //Set registration button
         Button bttn = new Button(" Sign  up ");
         HBox hbBttn = new HBox(10);
         hbBttn.getChildren().add(bttn);
         grid.add(bttn, 1, 4);
         
-        //设置退出按钮
+        //Set exit button
         Button btnn = new Button("    Exit   ");
         HBox hbBtnn = new HBox(10);
         hbBtnn.setAlignment(Pos.BOTTOM_LEFT);
         hbBtnn.getChildren().add(btnn);
         grid.add(hbBtnn,0,4);
 
-        //设置文本提示
+        //Set text prompt
         final Text actiontarget = new Text();
         grid.add(actiontarget, 0, 6);
         grid.setColumnSpan(actiontarget, 1);
         grid.setHalignment(actiontarget, RIGHT);
         actiontarget.setId("actiontarget");
         
-        //登录事件
+        //Login event
         btn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 String selectUserNumber = String.valueOf(userTextField.getText()); 
                 String UserPassword = String.valueOf((pwBox).getText()); 
                 if(userTextField.getText().equals("")||(pwBox).getText().equals("")){
-                	actiontarget.setText( "登录失败！");
+                	actiontarget.setText( "Login failed!");
                 }
                 else{
-                	System.out.println("输入用户信息： 学号： " +selectUserNumber+  "   密码："+ UserPassword);//控制台信息查看
+                	System.out.println("Enter user information： student ID： " +selectUserNumber+  "   password："+ UserPassword);//Console information view
                     int user = JDBC.selectUserNumber(selectUserNumber);
                     int Password = JDBC.selectPassword(selectUserNumber,UserPassword);
                     JDBC.select(selectUserNumber);
                     if ((user != 0)&&(Password != 0)) {
-                    	actiontarget.setText( "登录成功！");
-                    	SignIn (primaryStage);//打开登录成功信息显示窗口
-                    	primaryStage.close();//关闭登录窗口
+                    	actiontarget.setText( "login successful！");
+                    	SignIn (primaryStage);//Open the login success message display window
+                    	primaryStage.close();//Close login window
                     }
                     else{
-                      	actiontarget.setText( "登录失败！");
+                      	actiontarget.setText( "Login failed!");
                     }
                    
                  }
@@ -100,47 +100,47 @@ public class Login extends Application {
                 
         });
         
-        //注册事件
+        //Registration issue
         bttn.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(ActionEvent e) {
-            	 System.out.println("注册运行       ");
+            	 System.out.println("Register to run      ");
         		 String InsertUserNumber = String.valueOf(userTextField.getText()); 
                  String InsertUserPassword = String.valueOf((pwBox).getText()); 
                  if(userTextField.getText().equals("") && pwBox.getText().equals("")){
-                	 SignUp (primaryStage);//打开注册窗口
-                	 primaryStage.close();//关闭登录窗口
+                	 SignUp (primaryStage);//Open the registration window
+                	 primaryStage.close();//Close login window
                  }
                  else{
-                	 System.out.println("输入注册信息 ：学号： " +InsertUserNumber+  "   密码："+ InsertUserPassword);//控制台信息查看
+                	 System.out.println("Enter registration information ：student ID： " +InsertUserNumber+  "   password："+ InsertUserPassword);//Console information view
             		 int rest = JDBC.InsertUserNumber1( InsertUserNumber,InsertUserPassword) ;
             		 if(rest == 0)
-            			 actiontarget.setText("ID已存在！");
+            			 actiontarget.setText("ID already exists！");
             		 else
             		 {  
-            		     SignUp (primaryStage);//打开注册窗口
-            		     primaryStage.close();//关闭登录窗口
+            		     SignUp (primaryStage);//Open the registration window
+            		     primaryStage.close();//Close login window
             		     }
                  }
             }
         });
         
-        //退出事件
+        //Exit event
         btnn.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(ActionEvent e) {
-            	System.exit(0);//退出程序
+            	System.exit(0);//exit the program
             }
         });
         
-        //场景设置
-        Scene scene = new Scene(grid, 400, 260);//舞台布置为grid布局，400，260大小的场景
+        //Scene setting
+        Scene scene = new Scene(grid, 400, 260);//The stage layout is grid layout, 400, 260 size scenes
         primaryStage.setScene(scene);
-        scene.getStylesheets().add(Login.class.getResource("Login.css").toExternalForm());//使用CSS
+        scene.getStylesheets().add(Login.class.getResource("Login.css").toExternalForm());//Use CSS
         primaryStage.show();
-        System.out.println("登录界面运行 ");//控制台信息显示
+        System.out.println("Login interface running");//Console information display
         //JDBC.SelectUser();
     }
 
-     //登录成功信息显示窗口	
+     //Successful login message display window	
 	 public void SignIn (Stage primaryStage) {
 		 GridPane grid1 = new GridPane();
 		 Stage secondWindow = new Stage();
@@ -165,7 +165,7 @@ public class Login extends Application {
 	     Label userName = new Label("User Name:  " + JDBC.Name);
 	     grid1.add(userName, 0, 2);
 	        
-	     Label userSex = new Label("User Sex:      " + JDBC.Sex);
+	     Label userSex = new Label("User Gender:      " + JDBC.Sex);
 	     grid1.add(userSex, 0, 3);
 
 	     Button btnn1 = new Button("  Logout ");
@@ -183,13 +183,13 @@ public class Login extends Application {
 		 btnn1.setOnAction(new EventHandler<ActionEvent>(){
              public void handle(ActionEvent e) {
             	 secondWindow.close();
-            	 start(primaryStage);//打开登录窗口
+            	 start(primaryStage);//Open the login window
              }
          });
 		     
 		 btnn2.setOnAction(new EventHandler<ActionEvent>(){
              public void handle(ActionEvent e) {
-            	 Edit (primaryStage);//打开编辑窗口
+            	 Edit (primaryStage);//Open editing window
             	 secondWindow.close();
              }
          });
@@ -197,7 +197,7 @@ public class Login extends Application {
 		 scene.getStylesheets().add(Login.class.getResource("Login.css").toExternalForm());
 	 }
 	 
-	 //注册窗口
+	 //Registration window
      public void SignUp (Stage primaryStage) {
     	 GridPane grid2 = new GridPane();
     	 Stage secondWindow = new Stage();
@@ -233,7 +233,7 @@ public class Login extends Application {
 	     TextField userNameTextField = new TextField();
 	     grid2.add(userNameTextField, 1, 3);
 	        
-	     Label userSex = new Label("user Sex:");
+	     Label userSex = new Label("user Gender:");
 	     grid2.add(userSex, 0, 4);
 	     
 	     TextField userSexTextField = new TextField();
@@ -258,29 +258,29 @@ public class Login extends Application {
          
          btn2.setOnAction(new EventHandler<ActionEvent>(){
              public void handle(ActionEvent e) {
-             	 System.out.println("注册运行       ");
+             	 System.out.println("Register to run       ");
              	 String InsertuserID = String.valueOf(userIDTextField.getText()); 
                  String InsertUserPassword = String.valueOf(Password1.getText()); 
        	         String InsertUserNumber = String.valueOf(userNameTextField.getText()); 
                  String InsertUserSex = String.valueOf(userSexTextField.getText()); 
-                  System.out.println("输入注册信息 ：学号： " +InsertuserID+"   姓名：" 
-                                      + InsertUserNumber +  "   性别：" + InsertUserSex 
-                                      + "   密码：" + InsertUserPassword);//控制台数据查看
+                  System.out.println("Enter registration information ：student ID： " +InsertuserID+"   Name：" 
+                                      + InsertUserNumber +  "  gender：" + InsertUserSex 
+                                      + "   password：" + InsertUserPassword);//Console data view
                  if((userIDTextField.getText().equals("") )||( Password1.getText().equals("") )||( userNameTextField.getText().equals("") )||( userSexTextField.getText().equals(""))){
-                	 actiontarget2.setText( "内容不为空！");}
+                	 actiontarget2.setText( "The content is not empty!");}
                  else
                  {
       		        int rest =JDBC.InsertUserNumber( InsertuserID,InsertUserNumber,InsertUserSex,InsertUserPassword) ;
       		     if(rest == 0)
-      			     actiontarget2.setText("用户已存在！");
+      			     actiontarget2.setText("User already exists! ");
       		     else{
       		         try {
-						Thread.sleep(1000);//延迟等待1000毫秒
+						Thread.sleep(1000);//Delay for 1000 milliseconds
 					} catch (InterruptedException e1) {
 						e1.printStackTrace();
 					}
-      		         secondWindow.close();//关闭窗口
-      		         start(primaryStage);//打开登录窗口
+      		         secondWindow.close();//close the window
+      		         start(primaryStage);//Open the login window
       		        }
       		     }
              }
@@ -289,7 +289,7 @@ public class Login extends Application {
          btnn2.setOnAction(new EventHandler<ActionEvent>(){
              public void handle(ActionEvent e) {
             	 secondWindow.close();
-            	 start(primaryStage);//打开登录窗口
+            	 start(primaryStage);//Open the login window
              }
          });
          
@@ -297,7 +297,7 @@ public class Login extends Application {
 		 
 	 }
      
-     //更新数据
+     //update data
      public void Edit (Stage primaryStage) {
     	 GridPane grid3 = new GridPane();
     	 Stage secondWindow = new Stage();
@@ -362,29 +362,29 @@ public class Login extends Application {
          
          btn3.setOnAction(new EventHandler<ActionEvent>(){
              public void handle(ActionEvent e) {
-             	 System.out.println("更新数据运行       ");
+             	 System.out.println("Update data run      ");
              	 String UpdateuserID = String.valueOf(userIDTextField.getText()); 
                  String UpdateUserPassword = String.valueOf(Password1.getText()); 
        	         String UpdateUserNumber = String.valueOf(userNameTextField.getText()); 
                  String UpdateUserSex = String.valueOf(userSexTextField.getText()); 
-                 System.out.println("输入更新信息 ：学号 " + UpdateuserID + "   姓名：" + UpdateUserNumber +  "   性别：" + UpdateUserSex 
-                                      + "   密码：" + UpdateUserPassword);//控制台数据查看
+                 System.out.println("Enter update information ：student ID " + UpdateuserID + "   Name：" + UpdateUserNumber +  "   gender：" + UpdateUserSex 
+                                      + "   password：" + UpdateUserPassword);//Console data view
                  if(( userIDTextField.getText().equals("") )||( Password1.getText().equals("") )&&( userNameTextField.getText().equals("") )&&( userSexTextField.getText().equals(""))){
-                	 actiontarget3.setText( "内容不为空！");}
+                	 actiontarget3.setText( "Content is not empty！");}
                  else
                  {
       		        int rest = JDBC.UpdateUserNumber( UpdateuserID,UpdateUserNumber,UpdateUserSex,UpdateUserPassword) ;
       		        if(rest == 1){
       			        try {
-  					       Thread.sleep(1000);//延迟等待1000毫秒
+  					       Thread.sleep(1000);//Delay for 1000 milliseconds
   					       secondWindow.close();
   				        } catch (InterruptedException e1) {
   					       e1.printStackTrace();
   				     }
-      			        start(primaryStage);//打开登录窗口
+      			        start(primaryStage);//Open the login window
       			        }
       		        else{
-      		            actiontarget3.setText( "ID错误！");}
+      		            actiontarget3.setText( "ID error！");}
 		        }
              }
          });
@@ -392,31 +392,31 @@ public class Login extends Application {
          btnn3.setOnAction(new EventHandler<ActionEvent>(){
              public void handle(ActionEvent e) {
             	 secondWindow.close();
-            	 start(primaryStage);//打开登录窗口
+            	 start(primaryStage);//Open the login window
              }
          });
      
          bttn3.setOnAction(new EventHandler<ActionEvent>(){
              public void handle(ActionEvent e) {
-            	 System.out.println("删除数据运行       ");
+            	 System.out.println("Delete data run      ");
              	 String UpdateuserID = String.valueOf(userIDTextField.getText()); 
-             	 System.out.println("输入删除信息 ：学号 " + UpdateuserID );//控制台数据查看
+             	 System.out.println("Enter delete information ：student ID " + UpdateuserID );//Console data view
                  if( userIDTextField.getText().equals("") ){
-                	 actiontarget3.setText( "ID不为空！");
+                	 actiontarget3.setText( "ID is not empty! ");
                  }
                  else{
                 	 int rest = JDBC.DeleteUserNumber(UpdateuserID);
                 	 if(rest == 1){
        			        try {
-   					       Thread.sleep(1000);//延迟等待1000毫秒
+   					       Thread.sleep(1000);//Delay for 1000 milliseconds
    					       secondWindow.close();
    				        } catch (InterruptedException e1) {
    					       e1.printStackTrace();
    				     }
-       			        start(primaryStage);//打开登录窗口
+       			        start(primaryStage);//Open the login window
        			        }
        		         else{
-       		            actiontarget3.setText( "权限不足！");}
+       		            actiontarget3.setText( "Insufficient permissions!");}
  		        }
                  }
             	
@@ -426,7 +426,7 @@ public class Login extends Application {
 		 
 	 }  
     
-     //窗口运行
+     //Window running
      public static void main(String[] args) {
         launch(args);
     }
