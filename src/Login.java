@@ -1,7 +1,4 @@
-/**
- *
- * @author Aengus Chen 
- */
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,82 +17,82 @@ import javafx.stage.Stage;
 
 public class Login extends Application {
 
-	 //µÇÂ¼´°¿ÚÉèÖÃ
+	 //ç™»å½•çª—å£è®¾ç½®
 	@SuppressWarnings("static-access")
 	public void start(Stage primaryStage) {
 		
-		//ÉèÖÃÎèÌ¨²¼¾ÖÃæ°å
+		//è®¾ç½®èˆå°å¸ƒå±€é¢æ¿
         primaryStage.setTitle("Welcome StudentMIS");
         GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER);//ÉèÖÃ¶ÔÆë·½·¨ÎªÖĞĞÄ
-        grid.setHgap(10);//ÁĞÖ®¼äµÄË®Æ½²î¾àµÄ¿í¶ÈÎª10
-        grid.setVgap(10);//ĞĞÓëĞĞÖ®¼äµÄ´¹Ö±¼ä¾àµÄ¸ß¶ÈÎª10
-        grid.setPadding(new Insets(25, 25, 25, 25));//¶¥£¬ÓÒ£¬µ×²¿£¬×ó²àÖÜÎ§µØÇøµÄÄÚÈİÌî³ä
+        grid.setAlignment(Pos.CENTER);//è®¾ç½®å¯¹é½æ–¹æ³•ä¸ºä¸­å¿ƒ
+        grid.setHgap(10);//åˆ—ä¹‹é—´çš„æ°´å¹³å·®è·çš„å®½åº¦ä¸º10
+        grid.setVgap(10);//è¡Œä¸è¡Œä¹‹é—´çš„å‚ç›´é—´è·çš„é«˜åº¦ä¸º10
+        grid.setPadding(new Insets(25, 25, 25, 25));//é¡¶ï¼Œå³ï¼Œåº•éƒ¨ï¼Œå·¦ä¾§å‘¨å›´åœ°åŒºçš„å†…å®¹å¡«å……
 
-        //ÉèÖÃ³¡¾°±êÌâ
+        //è®¾ç½®åœºæ™¯æ ‡é¢˜
         Text scenetitle = new Text("Welcome");
         scenetitle.setId("welcome-text");
         grid.add(scenetitle, 0, 0, 2, 1);
 
-        //ÉèÖÃÑ§ºÅÊäÈë¿ò
+        //è®¾ç½®å­¦å·è¾“å…¥æ¡†
         Label userName = new Label("User ID:");
         grid.add(userName, 0, 1);
         TextField userTextField = new TextField();
         grid.add(userTextField, 1, 1);
 
-        //ÉèÖÃÃÜÂë¿ò
+        //è®¾ç½®å¯†ç æ¡†
         Label pw = new Label("Password:");
         grid.add(pw, 0, 2);
         PasswordField pwBox = new PasswordField();
         grid.add(pwBox, 1, 2);
         
-        //ÉèÖÃµÇÂ¼°´Å¥
+        //è®¾ç½®ç™»å½•æŒ‰é’®
         Button btn = new Button("  Sign  in  ");
         HBox hbBtn = new HBox(10);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn.getChildren().add(btn);
         grid.add(hbBtn,1,4);
         
-        //ÉèÖÃ×¢²á°´Å¥
+        //è®¾ç½®æ³¨å†ŒæŒ‰é’®
         Button bttn = new Button(" Sign  up ");
         HBox hbBttn = new HBox(10);
         hbBttn.getChildren().add(bttn);
         grid.add(bttn, 1, 4);
         
-        //ÉèÖÃÍË³ö°´Å¥
+        //è®¾ç½®é€€å‡ºæŒ‰é’®
         Button btnn = new Button("    Exit   ");
         HBox hbBtnn = new HBox(10);
         hbBtnn.setAlignment(Pos.BOTTOM_LEFT);
         hbBtnn.getChildren().add(btnn);
         grid.add(hbBtnn,0,4);
 
-        //ÉèÖÃÎÄ±¾ÌáÊ¾
+        //è®¾ç½®æ–‡æœ¬æç¤º
         final Text actiontarget = new Text();
         grid.add(actiontarget, 0, 6);
         grid.setColumnSpan(actiontarget, 1);
         grid.setHalignment(actiontarget, RIGHT);
         actiontarget.setId("actiontarget");
         
-        //µÇÂ¼ÊÂ¼ş
+        //ç™»å½•äº‹ä»¶
         btn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 String selectUserNumber = String.valueOf(userTextField.getText()); 
                 String UserPassword = String.valueOf((pwBox).getText()); 
                 if(userTextField.getText().equals("")||(pwBox).getText().equals("")){
-                	actiontarget.setText( "µÇÂ¼Ê§°Ü£¡");
+                	actiontarget.setText( "ç™»å½•å¤±è´¥ï¼");
                 }
                 else{
-                	System.out.println("ÊäÈëÓÃ»§ĞÅÏ¢£º Ñ§ºÅ£º " +selectUserNumber+  "   ÃÜÂë£º"+ UserPassword);//¿ØÖÆÌ¨ĞÅÏ¢²é¿´
+                	System.out.println("è¾“å…¥ç”¨æˆ·ä¿¡æ¯ï¼š å­¦å·ï¼š " +selectUserNumber+  "   å¯†ç ï¼š"+ UserPassword);//æ§åˆ¶å°ä¿¡æ¯æŸ¥çœ‹
                     int user = JDBC.selectUserNumber(selectUserNumber);
                     int Password = JDBC.selectPassword(selectUserNumber,UserPassword);
                     JDBC.select(selectUserNumber);
                     if ((user != 0)&&(Password != 0)) {
-                    	actiontarget.setText( "µÇÂ¼³É¹¦£¡");
-                    	SignIn (primaryStage);//´ò¿ªµÇÂ¼³É¹¦ĞÅÏ¢ÏÔÊ¾´°¿Ú
-                    	primaryStage.close();//¹Ø±ÕµÇÂ¼´°¿Ú
+                    	actiontarget.setText( "ç™»å½•æˆåŠŸï¼");
+                    	SignIn (primaryStage);//æ‰“å¼€ç™»å½•æˆåŠŸä¿¡æ¯æ˜¾ç¤ºçª—å£
+                    	primaryStage.close();//å…³é—­ç™»å½•çª—å£
                     }
                     else{
-                      	actiontarget.setText( "µÇÂ¼Ê§°Ü£¡");
+                      	actiontarget.setText( "ç™»å½•å¤±è´¥ï¼");
                     }
                    
                  }
@@ -103,47 +100,47 @@ public class Login extends Application {
                 
         });
         
-        //×¢²áÊÂ¼ş
+        //æ³¨å†Œäº‹ä»¶
         bttn.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(ActionEvent e) {
-            	 System.out.println("×¢²áÔËĞĞ       ");
+            	 System.out.println("æ³¨å†Œè¿è¡Œ       ");
         		 String InsertUserNumber = String.valueOf(userTextField.getText()); 
                  String InsertUserPassword = String.valueOf((pwBox).getText()); 
                  if(userTextField.getText().equals("") && pwBox.getText().equals("")){
-                	 SignUp (primaryStage);//´ò¿ª×¢²á´°¿Ú
-                	 primaryStage.close();//¹Ø±ÕµÇÂ¼´°¿Ú
+                	 SignUp (primaryStage);//æ‰“å¼€æ³¨å†Œçª—å£
+                	 primaryStage.close();//å…³é—­ç™»å½•çª—å£
                  }
                  else{
-                	 System.out.println("ÊäÈë×¢²áĞÅÏ¢ £ºÑ§ºÅ£º " +InsertUserNumber+  "   ÃÜÂë£º"+ InsertUserPassword);//¿ØÖÆÌ¨ĞÅÏ¢²é¿´
+                	 System.out.println("è¾“å…¥æ³¨å†Œä¿¡æ¯ ï¼šå­¦å·ï¼š " +InsertUserNumber+  "   å¯†ç ï¼š"+ InsertUserPassword);//æ§åˆ¶å°ä¿¡æ¯æŸ¥çœ‹
             		 int rest = JDBC.InsertUserNumber1( InsertUserNumber,InsertUserPassword) ;
             		 if(rest == 0)
-            			 actiontarget.setText("IDÒÑ´æÔÚ£¡");
+            			 actiontarget.setText("IDå·²å­˜åœ¨ï¼");
             		 else
             		 {  
-            		     SignUp (primaryStage);//´ò¿ª×¢²á´°¿Ú
-            		     primaryStage.close();//¹Ø±ÕµÇÂ¼´°¿Ú
+            		     SignUp (primaryStage);//æ‰“å¼€æ³¨å†Œçª—å£
+            		     primaryStage.close();//å…³é—­ç™»å½•çª—å£
             		     }
                  }
             }
         });
         
-        //ÍË³öÊÂ¼ş
+        //é€€å‡ºäº‹ä»¶
         btnn.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(ActionEvent e) {
-            	System.exit(0);//ÍË³ö³ÌĞò
+            	System.exit(0);//é€€å‡ºç¨‹åº
             }
         });
         
-        //³¡¾°ÉèÖÃ
-        Scene scene = new Scene(grid, 400, 260);//ÎèÌ¨²¼ÖÃÎªgrid²¼¾Ö£¬400£¬260´óĞ¡µÄ³¡¾°
+        //åœºæ™¯è®¾ç½®
+        Scene scene = new Scene(grid, 400, 260);//èˆå°å¸ƒç½®ä¸ºgridå¸ƒå±€ï¼Œ400ï¼Œ260å¤§å°çš„åœºæ™¯
         primaryStage.setScene(scene);
-        scene.getStylesheets().add(Login.class.getResource("Login.css").toExternalForm());//Ê¹ÓÃCSS
+        scene.getStylesheets().add(Login.class.getResource("Login.css").toExternalForm());//ä½¿ç”¨CSS
         primaryStage.show();
-        System.out.println("µÇÂ¼½çÃæÔËĞĞ ");//¿ØÖÆÌ¨ĞÅÏ¢ÏÔÊ¾
+        System.out.println("ç™»å½•ç•Œé¢è¿è¡Œ ");//æ§åˆ¶å°ä¿¡æ¯æ˜¾ç¤º
         //JDBC.SelectUser();
     }
 
-     //µÇÂ¼³É¹¦ĞÅÏ¢ÏÔÊ¾´°¿Ú	
+     //ç™»å½•æˆåŠŸä¿¡æ¯æ˜¾ç¤ºçª—å£	
 	 public void SignIn (Stage primaryStage) {
 		 GridPane grid1 = new GridPane();
 		 Stage secondWindow = new Stage();
@@ -186,13 +183,13 @@ public class Login extends Application {
 		 btnn1.setOnAction(new EventHandler<ActionEvent>(){
              public void handle(ActionEvent e) {
             	 secondWindow.close();
-            	 start(primaryStage);//´ò¿ªµÇÂ¼´°¿Ú
+            	 start(primaryStage);//æ‰“å¼€ç™»å½•çª—å£
              }
          });
 		     
 		 btnn2.setOnAction(new EventHandler<ActionEvent>(){
              public void handle(ActionEvent e) {
-            	 Edit (primaryStage);//´ò¿ª±à¼­´°¿Ú
+            	 Edit (primaryStage);//æ‰“å¼€ç¼–è¾‘çª—å£
             	 secondWindow.close();
              }
          });
@@ -200,7 +197,7 @@ public class Login extends Application {
 		 scene.getStylesheets().add(Login.class.getResource("Login.css").toExternalForm());
 	 }
 	 
-	 //×¢²á´°¿Ú
+	 //æ³¨å†Œçª—å£
      public void SignUp (Stage primaryStage) {
     	 GridPane grid2 = new GridPane();
     	 Stage secondWindow = new Stage();
@@ -261,29 +258,29 @@ public class Login extends Application {
          
          btn2.setOnAction(new EventHandler<ActionEvent>(){
              public void handle(ActionEvent e) {
-             	 System.out.println("×¢²áÔËĞĞ       ");
+             	 System.out.println("æ³¨å†Œè¿è¡Œ       ");
              	 String InsertuserID = String.valueOf(userIDTextField.getText()); 
                  String InsertUserPassword = String.valueOf(Password1.getText()); 
        	         String InsertUserNumber = String.valueOf(userNameTextField.getText()); 
                  String InsertUserSex = String.valueOf(userSexTextField.getText()); 
-                  System.out.println("ÊäÈë×¢²áĞÅÏ¢ £ºÑ§ºÅ£º " +InsertuserID+"   ĞÕÃû£º" 
-                                      + InsertUserNumber +  "   ĞÔ±ğ£º" + InsertUserSex 
-                                      + "   ÃÜÂë£º" + InsertUserPassword);//¿ØÖÆÌ¨Êı¾İ²é¿´
+                  System.out.println("è¾“å…¥æ³¨å†Œä¿¡æ¯ ï¼šå­¦å·ï¼š " +InsertuserID+"   å§“åï¼š" 
+                                      + InsertUserNumber +  "   æ€§åˆ«ï¼š" + InsertUserSex 
+                                      + "   å¯†ç ï¼š" + InsertUserPassword);//æ§åˆ¶å°æ•°æ®æŸ¥çœ‹
                  if((userIDTextField.getText().equals("") )||( Password1.getText().equals("") )||( userNameTextField.getText().equals("") )||( userSexTextField.getText().equals(""))){
-                	 actiontarget2.setText( "ÄÚÈİ²»Îª¿Õ£¡");}
+                	 actiontarget2.setText( "å†…å®¹ä¸ä¸ºç©ºï¼");}
                  else
                  {
       		        int rest =JDBC.InsertUserNumber( InsertuserID,InsertUserNumber,InsertUserSex,InsertUserPassword) ;
       		     if(rest == 0)
-      			     actiontarget2.setText("ÓÃ»§ÒÑ´æÔÚ£¡");
+      			     actiontarget2.setText("ç”¨æˆ·å·²å­˜åœ¨ï¼");
       		     else{
       		         try {
-						Thread.sleep(1000);//ÑÓ³ÙµÈ´ı1000ºÁÃë
+						Thread.sleep(1000);//å»¶è¿Ÿç­‰å¾…1000æ¯«ç§’
 					} catch (InterruptedException e1) {
 						e1.printStackTrace();
 					}
-      		         secondWindow.close();//¹Ø±Õ´°¿Ú
-      		         start(primaryStage);//´ò¿ªµÇÂ¼´°¿Ú
+      		         secondWindow.close();//å…³é—­çª—å£
+      		         start(primaryStage);//æ‰“å¼€ç™»å½•çª—å£
       		        }
       		     }
              }
@@ -292,7 +289,7 @@ public class Login extends Application {
          btnn2.setOnAction(new EventHandler<ActionEvent>(){
              public void handle(ActionEvent e) {
             	 secondWindow.close();
-            	 start(primaryStage);//´ò¿ªµÇÂ¼´°¿Ú
+            	 start(primaryStage);//æ‰“å¼€ç™»å½•çª—å£
              }
          });
          
@@ -300,7 +297,7 @@ public class Login extends Application {
 		 
 	 }
      
-     //¸üĞÂÊı¾İ
+     //æ›´æ–°æ•°æ®
      public void Edit (Stage primaryStage) {
     	 GridPane grid3 = new GridPane();
     	 Stage secondWindow = new Stage();
@@ -365,29 +362,29 @@ public class Login extends Application {
          
          btn3.setOnAction(new EventHandler<ActionEvent>(){
              public void handle(ActionEvent e) {
-             	 System.out.println("¸üĞÂÊı¾İÔËĞĞ       ");
+             	 System.out.println("æ›´æ–°æ•°æ®è¿è¡Œ       ");
              	 String UpdateuserID = String.valueOf(userIDTextField.getText()); 
                  String UpdateUserPassword = String.valueOf(Password1.getText()); 
        	         String UpdateUserNumber = String.valueOf(userNameTextField.getText()); 
                  String UpdateUserSex = String.valueOf(userSexTextField.getText()); 
-                 System.out.println("ÊäÈë¸üĞÂĞÅÏ¢ £ºÑ§ºÅ " + UpdateuserID + "   ĞÕÃû£º" + UpdateUserNumber +  "   ĞÔ±ğ£º" + UpdateUserSex 
-                                      + "   ÃÜÂë£º" + UpdateUserPassword);//¿ØÖÆÌ¨Êı¾İ²é¿´
+                 System.out.println("è¾“å…¥æ›´æ–°ä¿¡æ¯ ï¼šå­¦å· " + UpdateuserID + "   å§“åï¼š" + UpdateUserNumber +  "   æ€§åˆ«ï¼š" + UpdateUserSex 
+                                      + "   å¯†ç ï¼š" + UpdateUserPassword);//æ§åˆ¶å°æ•°æ®æŸ¥çœ‹
                  if(( userIDTextField.getText().equals("") )||( Password1.getText().equals("") )&&( userNameTextField.getText().equals("") )&&( userSexTextField.getText().equals(""))){
-                	 actiontarget3.setText( "ÄÚÈİ²»Îª¿Õ£¡");}
+                	 actiontarget3.setText( "å†…å®¹ä¸ä¸ºç©ºï¼");}
                  else
                  {
       		        int rest = JDBC.UpdateUserNumber( UpdateuserID,UpdateUserNumber,UpdateUserSex,UpdateUserPassword) ;
       		        if(rest == 1){
       			        try {
-  					       Thread.sleep(1000);//ÑÓ³ÙµÈ´ı1000ºÁÃë
+  					       Thread.sleep(1000);//å»¶è¿Ÿç­‰å¾…1000æ¯«ç§’
   					       secondWindow.close();
   				        } catch (InterruptedException e1) {
   					       e1.printStackTrace();
   				     }
-      			        start(primaryStage);//´ò¿ªµÇÂ¼´°¿Ú
+      			        start(primaryStage);//æ‰“å¼€ç™»å½•çª—å£
       			        }
       		        else{
-      		            actiontarget3.setText( "ID´íÎó£¡");}
+      		            actiontarget3.setText( "IDé”™è¯¯ï¼");}
 		        }
              }
          });
@@ -395,31 +392,31 @@ public class Login extends Application {
          btnn3.setOnAction(new EventHandler<ActionEvent>(){
              public void handle(ActionEvent e) {
             	 secondWindow.close();
-            	 start(primaryStage);//´ò¿ªµÇÂ¼´°¿Ú
+            	 start(primaryStage);//æ‰“å¼€ç™»å½•çª—å£
              }
          });
      
          bttn3.setOnAction(new EventHandler<ActionEvent>(){
              public void handle(ActionEvent e) {
-            	 System.out.println("É¾³ıÊı¾İÔËĞĞ       ");
+            	 System.out.println("åˆ é™¤æ•°æ®è¿è¡Œ       ");
              	 String UpdateuserID = String.valueOf(userIDTextField.getText()); 
-             	 System.out.println("ÊäÈëÉ¾³ıĞÅÏ¢ £ºÑ§ºÅ " + UpdateuserID );//¿ØÖÆÌ¨Êı¾İ²é¿´
+             	 System.out.println("è¾“å…¥åˆ é™¤ä¿¡æ¯ ï¼šå­¦å· " + UpdateuserID );//æ§åˆ¶å°æ•°æ®æŸ¥çœ‹
                  if( userIDTextField.getText().equals("") ){
-                	 actiontarget3.setText( "ID²»Îª¿Õ£¡");
+                	 actiontarget3.setText( "IDä¸ä¸ºç©ºï¼");
                  }
                  else{
                 	 int rest = JDBC.DeleteUserNumber(UpdateuserID);
                 	 if(rest == 1){
        			        try {
-   					       Thread.sleep(1000);//ÑÓ³ÙµÈ´ı1000ºÁÃë
+   					       Thread.sleep(1000);//å»¶è¿Ÿç­‰å¾…1000æ¯«ç§’
    					       secondWindow.close();
    				        } catch (InterruptedException e1) {
    					       e1.printStackTrace();
    				     }
-       			        start(primaryStage);//´ò¿ªµÇÂ¼´°¿Ú
+       			        start(primaryStage);//æ‰“å¼€ç™»å½•çª—å£
        			        }
        		         else{
-       		            actiontarget3.setText( "È¨ÏŞ²»×ã£¡");}
+       		            actiontarget3.setText( "æƒé™ä¸è¶³ï¼");}
  		        }
                  }
             	
@@ -429,7 +426,7 @@ public class Login extends Application {
 		 
 	 }  
     
-     //´°¿ÚÔËĞĞ
+     //çª—å£è¿è¡Œ
      public static void main(String[] args) {
         launch(args);
     }
