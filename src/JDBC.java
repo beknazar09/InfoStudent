@@ -1,7 +1,3 @@
-/**
- *
- * @author Aengus Chen 
- */
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -21,123 +17,118 @@ public class JDBC {
 	private static  String ID2 ;
 	protected static String Name = null;
 	protected static String Sex = null;
-	private static  String  Administrators = String.valueOf(110); //ÓµÓĞÉ¾³ıÊı¾İ¿âÓÃ»§È¨ÏŞ
+	private static  String  Administrators = String.valueOf(110); //Has the right to delete the database user
 	protected static String Password = null; 
 
-	  // ¾²Ì¬·½·¨¼ÓÔØÊı¾İ¿âÇı¶¯
+	  // Static method to load database driver
       static {
 		 try {
-			Class.forName(DRIVERCLASS).newInstance();// ¼ÓÔØÊı¾İ¿âÇı¶¯
-			DriverManager.getConnection(URL, USERNAME, PASSWORD);// ´´½¨ĞÂµÄÊı¾İ¿âÁ¬½Ó
-			System.out.println("Çı¶¯¼ÓÔØ³É¹¦ ");//¿ØÖÆÌ¨ĞÅÏ¢ÏÔÊ¾
+			Class.forName(DRIVERCLASS).newInstance();// Load database driver
+			DriverManager.getConnection(URL, USERNAME, PASSWORD);// Create a new database connection
+			System.out.println("Driver loaded successfully ");//Console information display
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
    
-      // ´´½¨Êı¾İ¿âÁ¬½Ó
+      // Create database connection
       public static Connection getConnection() {
 
-		 Connection conn = threadLocal.get();// ´ÓÏß³ÌÖĞ»ñµÃÊı¾İ¿âÁ¬½Ó
-		   if (conn == null) {// Ã»ÓĞ¿ÉÓÃµÄÊı¾İ¿âÁ¬½Ó
+		 Connection conn = threadLocal.get();// Get database connection from thread
+		   if (conn == null) {// No database connection available
 			try {
-				conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);// ´´½¨ĞÂµÄÊı¾İ¿âÁ¬½Ó
-				threadLocal.set(conn);// ½«Êı¾İ¿âÁ¬½Ó±£´æµ½Ïß³ÌÖĞ
+				conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);// Create a new database connection
+				threadLocal.set(conn);// Save the database connection to the thread
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Êı¾İ¿âÁ¬½Ó³É¹¦ "); //¿ØÖÆÌ¨ĞÅÏ¢²é¿´  
+		System.out.println("Database connection is successful "); //Console information view
 		return conn;
 	}
 
-	  // ¹Ø±ÕÊı¾İ¿âÁ¬½Ó//Î´µ÷ÓÃ
+	  // Close the database connection//not called
 	  public static boolean closeConnection() {
 		boolean isClosed = true;
-		Connection conn = threadLocal.get();// ´ÓÏß³ÌÖĞ»ñµÃÊı¾İ¿âÁ¬½Ó
-		threadLocal.set(null);// Çå¿ÕÏß³ÌÖĞµÄÊı¾İ¿âÁ¬½Ó
-		if (conn != null) {// Êı¾İ¿âÁ¬½Ó¿ÉÓÃ
+		Connection conn = threadLocal.get();//Get database connection from thread
+		threadLocal.set(null);// Empty the database connection in the thread
+		if (conn != null) {// Database connection available
 			try {
-				conn.close();// ¹Ø±ÕÊı¾İ¿âÁ¬½Ó
+				conn.close();// Close database connection
 			} catch (SQLException e) {
 				isClosed = false;
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Êı¾İ¿â¹Ø±Õ³É¹¦ "); //¿ØÖÆÌ¨ĞÅÏ¢²é¿´  
+		System.out.println("Database closed successfully "); //Console information view
 		return isClosed;
 	}
 	
-	  /*//Êı¾İ¿âÁ¬½Ó²âÊÔ
-	     public static void main(String[] args) {	  
-		  selectEmpUseName();
-		  System.out.println("Á¬½Ó³É¹¦ "); //¿ØÖÆÌ¨ĞÅÏ¢²é¿´      
-	    } */  
-	
-	  //ÓÃ»§µÇÂ¼-²éÑ¯Ñ§ºÅ
+	 
+	  //User login-query student ID
 	  public static int selectUserNumber(String selectUserNumber) {
-		 Connection conn = getConnection(); // »ñÈ¡Êı¾İ¿âÁ¬½Ó
-	     int id = 0; // ¶¨Òå±£´æ·µ»ØÖµµÄint¶ÔÏó
+		 Connection conn = getConnection(); // Get database connection
+	     int id = 0; // Define the int object that holds the return value
 	     ID2 = selectUserNumber;
 	     try {
-	          Statement  statment = conn.createStatement(); // »ñÈ¡Statement¶ÔÏó
-	          String sql = "select Ñ§ºÅ from Student where Ñ§ºÅ  = '" + selectUserNumber + "'"; // ¶¨Òå²éÑ¯SQLÓï¾ä
-	          ResultSet rest = statment.executeQuery(sql); // Ö´ĞĞ²éÑ¯Óï¾ä»ñÈ¡²éÑ¯½á¹û¼¯
-	          System.out.println("²éÑ¯Êı¾İ¿â£º" +selectUserNumber + id );//¿ØÖÆÌ¨Êı¾İ²é¿´
+	          Statement  statment = conn.createStatement(); // Get the Statement object
+	          String sql = "select student ID from Student where student ID  = '" + selectUserNumber + "'"; // Define query SQL statement
+	          ResultSet rest = statment.executeQuery(sql); // Execute query statement to obtain query result set
+	          System.out.println("Query databaseï¼š" +selectUserNumber + id );//Console data view
 	          while (rest.next()){
-	            id = rest.getInt(1); // »ñÈ¡²éÑ¯½á¹û
-	            System.out.println("Êı¾İ¿â²éÑ¯·µ»Ø½á¹û£º " + id);//¿ØÖÆÌ¨Êı¾İ²é¿´
+	            id = rest.getInt(1); // Get query results
+	            System.out.println("Database query returns resultsï¼š " + id);//Console data view
 	            }
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
-	        return id; // ·µ»Ø²éÑ¯½á¹û
+	        return id; // Return query result
 	    }
 	  
-	  //ÓÃ»§µÇÂ¼-²éÑ¯ÃÜÂë
+	  //User login-query password
 	  public static int selectPassword(String selectUserNumber,String Password) {
-	      Connection conn = getConnection(); // »ñÈ¡Êı¾İ¿âÁ¬½Ó
-		  int id = 0; // ¶¨Òå±£´æ·µ»ØÖµµÄint¶ÔÏó
+	      Connection conn = getConnection(); // Get database connection
+		  int id = 0; // Define the int object that holds the return value
 		   try {
-		       Statement statment = conn.createStatement(); // »ñÈ¡Statement¶ÔÏó
-		       String sql = "select ÃÜÂë from Student where ÃÜÂë = '" + Password + "' and Ñ§ºÅ  = '" + selectUserNumber + "'"; // ¶¨Òå²éÑ¯SQLÓï¾ä
-		       ResultSet rest = statment.executeQuery(sql); // Ö´ĞĞ²éÑ¯Óï¾ä»ñÈ¡²éÑ¯½á¹û¼¯
-		       System.out.println("²éÑ¯Êı¾İ¿â£º " +Password + id);//¿ØÖÆÌ¨Êı¾İ²é¿´
+		       Statement statment = conn.createStatement(); // Get the Statement object
+		       String sql = "select password from Student where password = '" + Password + "' and student ID  = '" + selectUserNumber + "'"; // Define query SQL statement
+		       ResultSet rest = statment.executeQuery(sql); // Execute query statement to obtain query result set
+		       System.out.println("Query databaseï¼š " +Password + id);//Console data view
 		       while (rest.next()){
-		            id = rest.getInt(1); // »ñÈ¡²éÑ¯½á¹û
-		            System.out.println("Êı¾İ¿â²éÑ¯·µ»Ø½á¹û£º " + id);//¿ØÖÆÌ¨Êı¾İ²é¿´
+		            id = rest.getInt(1); // Get query results
+		            System.out.println("Database query returns resultsï¼š " + id);//Console data view
 		            }
 		        } catch (Exception e) {
 		            e.printStackTrace();
 		        }
-		        return id; // ·µ»Ø²éÑ¯½á¹û
+		        return id; // Return query result
 		    }
 	  
-	  //ÓÃ»§ĞÅÏ¢²éÑ¯
+	  //User information query
 	  public static void select(String selectUserNumber) {
-	      Connection conn = getConnection(); // »ñÈ¡Êı¾İ¿âÁ¬½Ó
-	      ID2 = selectUserNumber;//±£ÁôÓÃ»§ID
+	      Connection conn = getConnection(); // Get database connection
+	      ID2 = selectUserNumber;//Keep user ID
 		   try {
-		       Statement statment = conn.createStatement(); // »ñÈ¡Statement¶ÔÏó
-		       String sql = "select * from Student where Ñ§ºÅ  = '" + selectUserNumber + "'";  // ¶¨Òå²éÑ¯SQLÓï¾ä
-		       ResultSet rest = statment.executeQuery(sql); // Ö´ĞĞ²éÑ¯Óï¾ä»ñÈ¡²éÑ¯½á¹û¼¯
+		       Statement statment = conn.createStatement(); // Get the Statement object
+		       String sql = "select * from Student where student ID  = '" + selectUserNumber + "'";  // Define query SQL statement
+		       ResultSet rest = statment.executeQuery(sql); // Execute query statement to obtain query result set
 		       while (rest.next()){
-		            ID = rest.getString(1); // »ñÈ¡²éÑ¯½á¹û
+		            ID = rest.getString(1); // Get query results
 		            Name = rest.getString(2);
 		            Sex = rest.getString(3);
-		            Password = rest.getString(4);//´°¿ÚÎŞÏÔÊ¾
+		            Password = rest.getString(4);//No window is displayed
 		            }
 		        } catch (Exception e) {
 		            e.printStackTrace();
 		        }
 		    } 
 	  	  
-	  //ÓÃ»§ĞÅÏ¢²åÈë-ÅĞ¶ÏÓÃ»§ÊÇ·ñ´æÔÚ 
+	  //User information insertion-determine whether the user exists
 	  public static int InsertUserNumber1(String InsertuserID,String InsertPassword) {
 		   @SuppressWarnings("unused")
-		Connection conn = getConnection(); // »ñÈ¡Êı¾İ¿âÁ¬½Ó
+		Connection conn = getConnection(); //Get database connection
 		   if(selectUserNumber(InsertuserID)!=0){
-		    	System.out.println("ÓÃ»§ÒÑ´æÔÚ");
+		    	System.out.println("User already exists");
 		        return 0 ; 
 		    }
 		    else{
@@ -145,19 +136,19 @@ public class JDBC {
 		    }
 	  } 
 	  
-	  //ÓÃ»§ĞÅÏ¢²åÈë
+	  //User information insertion
 	  public static int InsertUserNumber(String InsertuserID,String InsertUserNumber,String InsertUserSex,String InsertPassword) {
-		   Connection conn = getConnection(); // »ñÈ¡Êı¾İ¿âÁ¬½Ó
+		   Connection conn = getConnection(); // Get database connection
 		   if(selectUserNumber(InsertUserNumber)!=0){
-		    	System.out.println("¸ÃÓÃ»§ÒÑ´æÔÚ");
+		    	System.out.println("The user already exists");
 		     return 0 ; 
 		    }
 		    else{
 	            try {
 	            PreparedStatement statement = conn
-	                    .prepareStatement("insert into Student values('" + InsertuserID + "','" + InsertUserNumber + "','" + InsertUserSex + "','" + InsertPassword + "')"); // ¶¨Òå²åÈëÊı¾İ¿âµÄÔ¤´¦ÀíÓï¾ä
-	            statement.executeUpdate(); // Ö´ĞĞÔ¤´¦ÀíÓï¾ä
-	            System.out.println("×¢²áÔËĞĞ³É¹¦");
+	                    .prepareStatement("insert into Student values('" + InsertuserID + "','" + InsertUserNumber + "','" + InsertUserSex + "','" + InsertPassword + "')"); // Define prepared statements inserted into the database              
+	            statement.executeUpdate(); // Execute prepared statement
+	            System.out.println("Successful registration");
 	            }catch (SQLException e) {
 	            e.printStackTrace();
 	            }
@@ -165,21 +156,21 @@ public class JDBC {
 		    }
 	  }
     
-	  //ÓÃ»§Êı¾İ¸üĞÂ
+	  //User data update
 	  public static int UpdateUserNumber(String updateUserID,String updateUserNumber, String updateUserSex, String updateUserPassword) {
-		Connection conn = getConnection(); // »ñÈ¡Êı¾İ¿âÁ¬½Ó
+		Connection conn = getConnection(); // Get database connection
 		if(updateUserID.equals(ID2) == true){
             try {
             	PreparedStatement statement1 = conn
-      	                  .prepareStatement("update Student set ĞÕÃû = '" + updateUserNumber + "' where Ñ§ºÅ = '" + updateUserID + "'"); // ¶¨Òå²åÈëÊı¾İ¿âµÄÔ¤´¦ÀíÓï¾ä
+      	                  .prepareStatement("update Student set Name = '" + updateUserNumber + "' where student ID = '" + updateUserID + "'"); // Define prepared statements inserted into the database
             	PreparedStatement statement2 = conn
-              	          .prepareStatement("update Student set ĞÔ±ğ  = '" + updateUserSex + "' where Ñ§ºÅ = '" + updateUserID + "'");
+              	          .prepareStatement("update Student set gender  = '" + updateUserSex + "' where student ID = '" + updateUserID + "'");
               	PreparedStatement statement3 = conn
-            	          .prepareStatement("update Student set ÃÜÂë  = '" + updateUserPassword + "' where Ñ§ºÅ = '" + updateUserID + "'");
+            	          .prepareStatement("update Student set password  = '" + updateUserPassword + "' where student ID = '" + updateUserID + "'");
               	statement1.executeUpdate();
               	statement2.executeUpdate();
-            	statement3.executeUpdate(); // Ö´ĞĞÔ¤´¦ÀíÓï¾ä
-	            System.out.println("¸üĞÂÔËĞĞ³É¹¦");
+            	statement3.executeUpdate(); // Execute prepared statement
+	            System.out.println("Update runs successfully");
 	            }catch (SQLException e) {
 	            e.printStackTrace();
 	            }
@@ -190,15 +181,15 @@ public class JDBC {
 
 	}
 	  
-	  //ÓÃ»§Êı¾İÉ¾³ı
+	  //User data deletion
 	  public static int DeleteUserNumber(String DeleteuserID) {
-		   Connection conn = getConnection(); // »ñÈ¡Êı¾İ¿âÁ¬½Ó
+		   Connection conn = getConnection(); // Get database connection
 			if(Administrators.equals(ID2) == true){
 	            try {
 	            	PreparedStatement statement1 = conn
-	      	                  .prepareStatement("delete from Student where Ñ§ºÅ = '" + DeleteuserID + "'"); // ¶¨Òå²åÈëÊı¾İ¿âµÄÔ¤´¦ÀíÓï¾ä
-	              	statement1.executeUpdate(); // Ö´ĞĞÔ¤´¦ÀíÓï¾ä
-		            System.out.println("É¾³ıÔËĞĞ³É¹¦");
+	      	                  .prepareStatement("delete from Student where student ID = '" + DeleteuserID + "'"); // Define prepared statements inserted into the database
+	              	statement1.executeUpdate(); // Execute prepared statement
+		            System.out.println("Delete run successfully");
 		            }catch (SQLException e) {
 		            e.printStackTrace();
 		            }
@@ -210,19 +201,19 @@ public class JDBC {
 		}
 	  
       //*********************************************************************	  
-	  //ËùÓĞÓÃ»§ĞÅÏ¢²éÑ¯//2017/6/10//¿ØÖÆÌ¨¹¦ÄÜÊµÏÖ£¬´°¿Ú¹¦ÄÜÎ´ÊµÏÖ
+	  //All user information query //2017/6/10//Console function is realized, window function is not realized
 	  public static int SelectUser() {
-		   Connection conn = getConnection(); // »ñÈ¡Êı¾İ¿âÁ¬½Ó
+		   Connection conn = getConnection(); // Get database connection
 				try {
-				       Statement statment = conn.createStatement(); // »ñÈ¡Statement¶ÔÏó
-				       String sql = "select * from Student ";  // ¶¨Òå²éÑ¯SQLÓï¾ä
-				       ResultSet rest = statment.executeQuery(sql); // Ö´ĞĞ²éÑ¯Óï¾ä»ñÈ¡²éÑ¯½á¹û¼¯
+				       Statement statment = conn.createStatement(); // Get the Statement object
+				       String sql = "select * from Student ";  // Define query SQL statement
+				       ResultSet rest = statment.executeQuery(sql); // Execute query statement to obtain query result set
 				       while (rest.next()){
-				            ID = rest.getString(1); // »ñÈ¡²éÑ¯½á¹û
+				            ID = rest.getString(1); // Get query results
 				            Name = rest.getString(2);
 				            Sex = rest.getString(3);
 				            Password = rest.getString(4);
-				            System.out.println("Ñ§ºÅ£º" + ID + "   ĞÕÃû£º" + Name + "        ĞÔ±ğ£º" + Sex + "        ÃÜÂë£º" + Password);
+				            System.out.println("student IDï¼š" + ID + "   Nameï¼š" + Name + "        genderï¼š" + Sex + "        passwordï¼š" + Password);
 				            }
 				        } catch (Exception e) {
 				            e.printStackTrace();
