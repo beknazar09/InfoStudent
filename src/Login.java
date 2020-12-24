@@ -17,14 +17,14 @@ import javafx.stage.Stage;
 
 public class Login extends Application {
 
-	 //登录窗口设置
+	 //Login window settings
 	@SuppressWarnings("static-access")
 	public void start(Stage primaryStage) {
 		
-		//设置舞台布局面板
+		//Set the stage layout panel
         primaryStage.setTitle("Welcome StudentMIS");
         GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER);//设置对齐方法为中心
+        grid.setAlignment(Pos.CENTER);//Set alignment method as center
         grid.setHgap(10);//列之间的水平差距的宽度为10
         grid.setVgap(10);//行与行之间的垂直间距的高度为10
         grid.setPadding(new Insets(25, 25, 25, 25));//顶，右，底部，左侧周围地区的内容填充
